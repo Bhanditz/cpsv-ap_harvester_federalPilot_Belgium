@@ -160,7 +160,7 @@ function appendContent (cell, v, style){
  * #param {string} className - Value of the class from which to obtain the property name.
  * #param {string} propURI - URI of the property.
  */
-function getPropertyName(className, propURI){
+function getPropertyName(propURI){
 	$.ajax({
 		type: "GET",
 		url: "http://localhost:80/harvesterPilotHTML/pages/getProperties.php",
@@ -797,6 +797,22 @@ function getURIProps (uri) {
 	return props;
 }
 
+function getMoreInfoURI (uri) {
+	var props="";
+	
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getMoreInfo.php",
+		data: { "uri":uri },
+		async: false,
+		success: function (response) {
+			props = response;
+		},
+	});
+	
+	return props;
+}
+
 function updateInfo (field, title, list) {
 	var props="", aux="", i, prop="", value="", name="", cad="";
 	
@@ -807,14 +823,13 @@ function updateInfo (field, title, list) {
 		prop=aux[0];
 		value=aux[1];
 		name = prop;
-		//name=getPropertyName("PublicService", prop);
 		if(prop != "") {
 			if(prop == "Name") {
 				title.innerHTML = value;
 			}
 			else {
 				if (value.substring(0, 4) == "http") {
-					cad = cad + "<div onclick='getMoreInfo(&#39;" + value.substring(0, value.length-1) + "&#39;)' style='cursor:pointer'><b>" + name + ":</b> " + value + "</div>";
+					cad = cad + "<div onclick='getMoreInfo(&#39;" + value.substring(0, value.length-1) + "&#39;, &#39;" + name + "&#39;)' style='cursor:pointer'><b>" + name + ":</b> " + value + "</div>";
 				}
 				else cad = cad + "<div><b>" + name + "</b>: " + value + "</div>";
 			}
@@ -873,9 +888,50 @@ function applyEvent (country) {
 	}
 }
 
-//TODO finish
-function getMoreInfo (uri) {
-	var props = getURIProps (uri);
+function getMoreInfo (uri, uriName) {
+	var modal, body, header, props="", bodyText="", i, name="", value="", aux="";
 	
+	props = getMoreInfoURI (uri);
 	
+	if (props == "")
+		alert("There is no further information for the property ("+uriName+")");
+ 	else {
+		// Get the modal
+		modal = document.getElementById('moreInfo');
+
+		// Get the <span> element that closes the modal
+		var span = document.getElementsByClassName("closeInfo")[0];
+
+		// When the user clicks the button, open the modal
+		modal.style.display = "block";
+
+		header = document.getElementById('modalHeader');
+		header.innerHTML = uriName;
+		
+		props = props.split("##");
+		
+		bodyText = "<p><b>Identifier</b>: " + uri + "</p>";
+		
+		for (i=1; i<props.length; i++) {
+			aux = props[i].split("@#");
+			name = aux[0];
+			value = aux[1];
+			bodyText = bodyText + "<p><b>" + name + "</b>: " + value + "</p>";
+		}
+		
+		body = document.getElementById('modalBody');
+		body.innerHTML = bodyText;
+		
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+	}
 }

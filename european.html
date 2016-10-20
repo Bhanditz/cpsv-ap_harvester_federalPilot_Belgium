@@ -76,6 +76,9 @@ var STYLE_PREFIX = 'wsite';
 		</script>
 		<script type="text/javascript" src="./cpsv-ap_harvester.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="files/modal.css" />
+		
 	</head>
 	<body class="header-page  wsite-theme-light  wsite-page-european"><div class="wrapper">
 	
@@ -132,6 +135,25 @@ var STYLE_PREFIX = 'wsite';
 					</div>
 				</div>
 			</div><!-- end banner-wrap -->
+			
+			<!-- The Modal -->
+			<div id="moreInfo" class="modal">
+
+			  <!-- Modal content -->
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <span class="closeInfo">×</span>
+				  <h2 id="modalHeader"></h2>
+				</div>
+				<div class="modal-body" id="modalBody">
+				</div>
+				<div class="modal-footer">
+				  <h3 id="modalFooter"></h3>
+				</div>
+			  </div>
+
+			</div>
+			
 			<div class="content-wrap">
 				<div id="wsite-content" class="wsite-elements wsite-not-footer">
 					<div class="wsite-section-wrap">
