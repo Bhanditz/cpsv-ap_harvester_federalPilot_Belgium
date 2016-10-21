@@ -18,13 +18,17 @@ from SPARQLWrapper import SPARQLWrapper, POST, JSON
 from rdflib import Graph
 from rdflib.plugins.stores.sparqlstore import SPARQLUpdateStore
 from termcolor import colored
-from rdflib import URIRef, Literal
+import sys
+import rdfextras
 
+rdfextras.registerplugins() # so we can Graph.query()
 
 headers = {'content-type': 'application/json'}  # HTTP header content type
 # Configurations
 config = ConfigParser()
 config.read('config.ini')
+
+uri = sys.argv[1]
 
 endpoint_uri = config['Mandatory']['endpointURI']
 graph_uri = config['Mandatory']['graphURI']
@@ -41,26 +45,16 @@ sparql.addDefaultGraph(graph_uri)
 # Create an in memory graph
 g = Graph(store, identifier=graph_uri)
 
-clean_graph_query = "DELETE FROM <"+graph_uri+"> {?s ?p ?o}  WHERE { ?s ?p ?o; <http://cpsvapfield> ?o}"
-# Cleanup the existing triples
-sparql.setQuery(clean_graph_query)
-sparql.query().convert()
+query = "select ?propname ?value where {<" + uri + "> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?class. ?class <http://cpsvapshow> ?prop. ?prop <http://cpsvapfield> ?propname. OPTIONAL {<" + uri + "> ?prop ?value}}"
+urls = g.query (query)
 
-clean_graph_query = "DELETE FROM <"+graph_uri+"> {?s ?p ?o}  WHERE { ?s ?p ?o; <http://cpsvapshow> ?o }"
-# Cleanup the existing triples
-sparql.setQuery(clean_graph_query)
-sparql.query().convert()
-
-# Build the RDF from the source data
-input = Graph()
-input.open("store2", create=True)
-input.parse("http://localhost/harvesterPilotHTML/pages/CPSVAPdefinition.ttl", format='turtle')
-
-for s, p, o in input:
-	g.add((s, p, o))
-
-input.close()
+for row in urls:
+	name = str(row[0])
+	if row[1] is None:
+		print (name + "@#" + "NoValue")
+	else:
+		value = str(row[1])
+		print (name + "@#" + value)
 
 # Cleanup the graph instance
 g.close()
-
