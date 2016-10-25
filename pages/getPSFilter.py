@@ -47,10 +47,15 @@ sparql.addDefaultGraph(graph_uri)
 # Create an in memory graph
 g = Graph(store, identifier=graph_uri)
 
-if ev != "All":
-	evquery =  "; <http://data.europa.eu/m8g/isGroupedBy> <" + ev + ">"
+if ev == "BE":
+	evquery = "; <http://data.europa.eu/m8g/isGroupedBy> ?event. ?event <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://data.europa.eu/m8g/BusinessEvent>"
 else:
-	evquery = ""
+	if ev == "LE":
+		evquery = "; <http://data.europa.eu/m8g/isGroupedBy> ?event. ?event <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://data.europa.eu/m8g/LifeEvent>"
+	else:
+		evquery =  "; <http://data.europa.eu/m8g/isGroupedBy> <" + ev + ">"
+	
+	
 
 sectorquery = ""
 first = "true"
@@ -74,7 +79,7 @@ if lang != "NoLang":
 else:
 	langquery = ""
 	
-query = "select ?uri ?origin ?name ?desc where {?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + langquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}" + sectorquery + "}"
+query = "select ?uri ?origin ?name ?desc where {?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>"+ langquery + evquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}" + sectorquery + "}"
 urls = g.query (query)
 
 for row in urls:

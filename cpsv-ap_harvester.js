@@ -8,7 +8,7 @@ function clean(){
 
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/clear.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/clear.php",
 		data: { },
 		async: false,
 		success: function (response) {
@@ -33,7 +33,7 @@ function harvest(){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/harvest.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/harvest.php",
 		data: { p: '1' },
 		async: false,
 		success: function (response) {
@@ -163,7 +163,7 @@ function appendContent (cell, v, style){
 function getPropertyName(propURI){
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getProperties.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getProperties.php",
 		data: { "p":propURI },
 		async: false,
 		success: function (response) {
@@ -284,7 +284,7 @@ function getStoredData (){
 			endpoint = xhttp.responseText;
 			}
 	};
-	xhttp.open("GET", "http://localhost:80/harvesterPilot/pages/getEndPoint.php", false); //synchronized
+	xhttp.open("GET", "http://localhost:80/harvesterPilotHTML/pages/getEndPoint.php", false); //synchronized
 	xhttp.send();
 	
 	if (endpoint != "") {
@@ -294,7 +294,7 @@ function getStoredData (){
 				result = xhttp2.responseText;
 			}
 		};
-		xhttp2.open("GET", "http://localhost:80/harvesterPilot/pages/show.php", false); //synchronized
+		xhttp2.open("GET", "http://localhost:80/harvesterPilotHTML/pages/show.php", false); //synchronized
 		xhttp2.send();
 		
 	}
@@ -543,7 +543,7 @@ function getTriplesURI(URI, classType){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getTriplesURI.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getTriplesURI.php",
 		data: { "URI":URI, "class":classType },
 		async: false,
 		success: function (response) {
@@ -592,7 +592,7 @@ function getPublicServices (country){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getPS.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getPS.php",
 		data: { "country":country },
 		async: false,
 		success: function (response) {
@@ -608,7 +608,7 @@ function getPublicServicesEvent (country, evURI){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getPSEvent.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getPSEvent.php",
 		data: { "country":country, "ev":evURI },
 		async: false,
 		success: function (response) {
@@ -624,7 +624,7 @@ function getListPublicServices (typeEvent){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getListPS.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getListPS.php",
 		data: { "ev":typeEvent },
 		async: false,
 		success: function (response) {
@@ -640,7 +640,7 @@ function getEvents (country){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getEvents.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getEvents.php",
 		data: { "country":country },
 		async: false,
 		success: function (response) {
@@ -656,7 +656,7 @@ function getSector (typeEvent){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getSector.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getSector.php",
 		data: { "type":typeEvent },
 		async: false,
 		success: function (response) {
@@ -673,7 +673,7 @@ function getLanguage (typeEvent){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getLanguage.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getLanguage.php",
 		data: { "type":typeEvent },
 		async: false,
 		success: function (response) {
@@ -814,7 +814,7 @@ function initialiseListPS (typeEvent) {
 		origin = row[1];
 		title = row[2];
 		desc = row[3];
-		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
+		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
 	}
 	
 	ps.innerHTML = cad;
@@ -829,7 +829,7 @@ function initialise (type) {
 	
 	var events = document.getElementById("eventsContainer");
 	events.innerHTML = "";
-	events.innerHTML = "<option id='All' name='checkEv' value='Option" + 0 + "'>All</option>";
+	events.innerHTML = "<option id='" + type + "' name='checkEv' value='Option" + 0 + "'>All</option>";
 	for (i=0; i<auxevents.length-1; i++){
 		row = auxevents[i].split("@#");
 		if (row[0] == type)
@@ -840,10 +840,13 @@ function initialise (type) {
 	initialiseLanguage(type);
 	initialiseListPS(type);
 	
-	var titleps = document.getElementById("title");
+	var titleps = document.getElementById("title1");
 	titleps.innerHTML = " ";
-	
-	var descps = document.getElementById("description");
+	var descps = document.getElementById("description1");
+	descps.innerHTML = " ";
+	titleps = document.getElementById("title2");
+	titleps.innerHTML = " ";
+	descps = document.getElementById("description2");
 	descps.innerHTML = " ";
 }
 
@@ -925,7 +928,7 @@ function getURIProps (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getURIprops.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getURIprops.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -941,7 +944,7 @@ function getMoreInfoURI (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getMoreInfo.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getMoreInfo.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -957,7 +960,7 @@ function getURIShowProperty (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getURIShowProp.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getURIShowProp.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -968,7 +971,7 @@ function getURIShowProperty (uri) {
 	return props;
 }
 
-function updateInfo (field, title, list) {
+function updateInfo (field, title, list, origin) {
 	var props="", aux="", i, prop="", value="", name="", cad="", show="", auxshow="", j, uri, propName, result="";
 	
 	props=list.split("\n");
@@ -980,7 +983,7 @@ function updateInfo (field, title, list) {
 		name = prop
 		if(prop != "") {
 			if(prop == "Name") {
-				title.innerHTML = value;
+				title.innerHTML = origin + " - " + value;
 			}
 			else {
 				if (value.substring(0, 4) == "http") {
@@ -1137,18 +1140,24 @@ function getMoreInfo (uri, uriName) {
 	}
 }
 
-function getPSInfo (uri) {
+function getPSInfo (uri, origin) {
 	var props="";
 	
-	var desc = document.getElementById("description");
-	var title = document.getElementById("title");
+	if (origin == "Estonia") {
+		var desc = document.getElementById("description1");
+		var title = document.getElementById("title1");
+	}
+	if (origin == "Finland") {
+		var desc = document.getElementById("description2");
+		var title = document.getElementById("title2");
+	}
 
 	title.innerHTML = "";
 	desc.innerHTML = "Loading description...";
 	
 	//show the Public Service properties
 	props = getURIProps(uri);
-	updateInfo(desc, title, props);
+	updateInfo(desc, title, props, origin);
 }
 
 function updateListPS (list) {
@@ -1169,15 +1178,21 @@ function updateListPS (list) {
 		origin = row[1];
 		title = row[2];
 		desc = row[3];
-		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
+		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
 	}
 	
 	ps.innerHTML = cad;
 	
-	var titleps = document.getElementById("title");
+	var titleps = document.getElementById("title1");
 	titleps.innerHTML = "";
 	
-	var descps = document.getElementById("description");
+	var descps = document.getElementById("description1");
+	descps.innerHTML = "";
+	
+	titleps = document.getElementById("title2");
+	titleps.innerHTML = "";
+	
+	descps = document.getElementById("description2");
 	descps.innerHTML = "";
 }
 
@@ -1191,9 +1206,13 @@ function applyFilter () {
 	
 	var ps = document.getElementById("listPS");
 	ps.innerHTML = "Loading list of public services";
-	var titleps = document.getElementById("title");
+	var titleps = document.getElementById("title1");
 	titleps.innerHTML = " ";	
-	var descps = document.getElementById("description");
+	var descps = document.getElementById("description1");
+	descps.innerHTML = " ";
+	titleps = document.getElementById("title2");
+	titleps.innerHTML = " ";	
+	descps = document.getElementById("description2");
 	descps.innerHTML = " ";
 	
 	if (sector == "")
@@ -1209,7 +1228,7 @@ function applyFilter () {
 	var cad="";
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilot/pages/getPSFilter.php",
+		url: "http://localhost:80/harvesterPilotHTML/pages/getPSFilter.php",
 		data: { "ev":event, "sector":s, "lang":l },
 		async: false,
 		success: function (response) {

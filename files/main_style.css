@@ -10,8 +10,8 @@
  #navigation { position: fixed; display: block; width: 225px; height: 100%; overflow-y: auto; z-index: 10; }
  #navigation-wrap { display: table; width: 100%; height: 100%; padding: 0 20px 0 40px; vertical-align: middle; box-sizing: border-box; }
  #main { position: relative; left: 0; display: block; padding: 40px 40px 40px 245px; vertical-align: top; }
- .container { width: 100%; margin: 0; padding: 40px; box-sizing: border-box; z-index: 12; }
- .wsite-section-wrap { position: relative; margin: 0 auto 2em; }
+ .container { width: 100%; margin: 0; padding-top: 20px; padding-bottom: 20px; padding-left: 40px; padding-right: 40px; box-sizing: border-box; z-index: 12; }
+ .wsite-section-wrap { position: relative; margin: 0 auto 1em; }
  #wsite-title, h2 { font-family: "Maven Pro", sans-serif; font-weight: 900 !important; line-height: 1 !important; text-transform: uppercase; }
  .sitename { margin: 0 auto 1em; }
  #wsite-title { font-size: 1.5em; display: inline-block; background: #000; color: #ffffff; padding: .1em .25em .15em; }
@@ -21,7 +21,7 @@
  div.paragraph, p { font-size: 1.15em; margin: 0 auto 2em; line-height: 1.75; word-wrap: break-word; }
  blockquote { color: #3f3f3f; font: 1.15em/1.5 "Maven Pro", sans-serif; font-weight: 900; font-style: italic; margin: 2em 3em !important; padding: 0 !important; border: none !important; text-transform: uppercase; }
  .wsite-image { font-family: "Maven Pro", sans-serif; font-weight: 700; }
- h2 { font-size: 1.5em; margin: 0 auto 1em; }
+ h2 { font-size: 1.5em; margin: 0 auto 20px; }
  .container .paragraph a, .blog-read-more a, #commentUserInfo a { color: #b3b3b3; }
  .container .paragraph a:hover, .container .paragraph a:focus, #commentUserInfo a:hover, #commentUserInfo a:focus { border-bottom: 1px solid #b3b3b3; }
  @media (max-width: 991px) {
@@ -45,7 +45,7 @@
  .wsite-logo a #wsite-title, .wsite-logo a:hover #wsite-title { font-size: 18px; padding: 0.1em .25em .17em; }
  #main, .container { padding: 20px !important; }
  body.menu-open #wrapper #main { left: 100%; }
- .wsite-multicol-col { max-width: 100% !important; display: block; width: auto !important; margin: 0 auto 2em !important; }
+ .wsite-multicol-col { max-width: 100% !important; display: block; width: auto !important; margin: 0 auto 2em !important; border-style: dotted !important; }
  .container h2 { font-size: 1.25em !important; line-height: 1 !important; margin: 0 auto 1.25em; }
  blockquote { margin: 1em 1em 1.5em !important; }
  }
@@ -96,7 +96,7 @@
  }
  #banner-wrap { position: relative; margin: 0 auto 2em; }
  #banner-content { text-align: left; width: 80%; margin: 0 auto; line-height: 2; }
- .wsite-background, .wsite-header-section { width: 100%; background: url(theme/images/background.jpg?1477058439) no-repeat center center; background-size: cover; }
+ .wsite-background, .wsite-header-section { width: 100%; background: url(http://localhost:80/harvesterPilotHTML/images/Business2.jpg) no-repeat center center; background-size: cover; }
  .wsite-header-section { text-align: left; height: 700px; }
  #banner h2, #banner div.paragraph, #banner .paragraph { text-align: left !important; font-family: "Maven Pro", sans-serif; font-weight: 900; }
  #banner h2, #banner p, #banner .paragraph { text-align: left !important; font-family: "Maven Pro", sans-serif; font-weight: 900; }
@@ -113,7 +113,7 @@
  .splash-page #banner-wrap { display: table; width: 100%; height: 100%; margin: 0 auto; }
  .splash-page #wsite-content > div { margin: 0 auto; }
  .splash-page #banner { display: table-cell; vertical-align: middle; box-sizing: border-box; }
- #banner .paragraph, #banner h2, #banner h2 span { display: block; padding: 0 .15em .1em; background: #000000; color: #ffffff; }
+ #banner .paragraph, #banner h2, #banner h2 span { display: block; padding: 0 .15em .1em; background: #FFFFFF; color: #737373; }
  #banner h2, #banner h2 span { font-size: 3.5em; display: inline-block; padding: 0 .15em .1em; }
  #banner h2 span { font-size: 1em; display: inline-block !important; padding: 0 .15em .1em; }
  .postload #banner h2 { display: block; padding: 0; background: none; }
@@ -133,7 +133,7 @@
  .landing-page #banner p { display: inline-block; color: #ffffff; font-family: "Maven Pro", sans-serif; font-weight: 900; font-size: 2em; line-height: 1 !important; text-transform: uppercase; }
  .landing-page #banner div.paragraph > span { display: inline-block; background: #000000; padding: .12em .3em .18em; margin-bottom: 1em; }
  .landing-page #banner p > span { display: inline-block; background: #000000; padding: .12em .3em .18em; margin-bottom: 1em; }
- #banner .paragraph { display: inline-block; background: #000000; color: #ffffff; font-family: "Maven Pro", sans-serif; font-weight: 900; font-size: 2em !important; padding: .12em .3em .18em !important; line-height: 1 !important; text-transform: uppercase; }
+ #banner .paragraph { display: inline-block;  background: #FFFFFF; color: #737373; font-family: "Maven Pro", sans-serif; font-weight: 900; font-size: 2em !important; padding: .12em .3em .18em !important; line-height: 1 !important; text-transform: uppercase; }
  .landing-page #banner .button-wrap { text-align: left !important; margin: 0 auto !important; }
  @media (max-width: 767px) {
  .landing-page #banner h2 > span, #banner h2, .tall-header-page #banner h2 > span { font-size: 2em !important; }
@@ -481,3 +481,7 @@ div.paragraph ul, div.paragraph ol { padding-left: 3em !important; margin: 5px 0
 div.paragraph li { padding-left: 5px !important; margin: 3px 0 0 !important; }
 div.paragraph ul, div.paragraph ul li { list-style: disc outside !important; }
 div.paragraph ol, div.paragraph ol li { list-style: decimal outside !important; }
+
+
+#title1 { line-height: 15px; }
+#title2 { line-height: 15px; }
