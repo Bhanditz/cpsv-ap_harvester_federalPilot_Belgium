@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>cross-border_PScatalogue - Home</title>
+		<title>Citizen - cross-border_PScatalogue</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0;">
 			<link id="wsite-base-style" rel="stylesheet" type="text/css" href="http://cdn2.editmysite.com/css/sites.css?buildTime=1234" />
@@ -56,7 +56,7 @@ var STYLE_PREFIX = 'wsite';
 		function initFlyouts(){
 			initPublishedFlyoutMenus(
 				[{"id":"469433230227914766","title":"Home","url":"index.html","target":"","nav_menu":false,"nonclickable":false},{"id":"799468888393667365","title":"Citizen","url":"citizen.html","target":"","nav_menu":false,"nonclickable":false},{"id":"176610702911461246","title":"Business","url":"business.html","target":"","nav_menu":false,"nonclickable":false}],
-				"469433230227914766",
+				"799468888393667365",
 				'',
 				'active',
 				false,
@@ -74,10 +74,20 @@ var STYLE_PREFIX = 'wsite';
 //-->
 			</script>
 			
+			<script type="text/javascript" src="./cpsv-ap_harvester.js"></script>
+			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			
+			<link rel="stylesheet" type="text/css" href="files/modal.css" />
 			
 		</head>
-		<body class="header-page  wsite-page-index  wsite-theme-light"><div id="wrapper">
+		<body class="header-page  wsite-page-citizen  wsite-theme-light"><div id="wrapper">
+		
+			<script type="text/javascript">
+				$(document).ready(function () {
+					initialise("LE");
+				});
+			</script>
+		
 				<div id="navigation">
 					<div id="navigation-wrap">
 						<div id="nav">
@@ -87,19 +97,7 @@ var STYLE_PREFIX = 'wsite';
 									</span>
 								</span></div>
 							<ul class="wsite-menu-default">
-								<li id="active" class="wsite-menu-item-wrap">
-									<a href="index.html" class="wsite-menu-item">Home</a>
-								</li>
-								<li id="pg799468888393667365" class="wsite-menu-item-wrap">
-									<a href="citizen.html" class="wsite-menu-item" >Citizen</a>
-								</li>
-								<li id="pg176610702911461246" class="wsite-menu-item-wrap">
-									<a href="business.html" class="wsite-menu-item" >Business</a>
-								</li>
-							</ul>
-						</div>
-						<!-- <div id="navmobile"><ul class="wsite-menu-default">
-								<li id="active" class="wsite-menu-item-wrap">
+								<li id="pg469433230227914766" class="wsite-menu-item-wrap">
 									<a
 											href="index.html"
 											class="wsite-menu-item"
@@ -107,7 +105,7 @@ var STYLE_PREFIX = 'wsite';
 										Home
 									</a>
 								</li>
-								<li id="pg799468888393667365" class="wsite-menu-item-wrap">
+								<li id="active" class="wsite-menu-item-wrap">
 									<a
 											href="citizen.html"
 											class="wsite-menu-item"
@@ -124,54 +122,54 @@ var STYLE_PREFIX = 'wsite';
 									</a>
 								</li>
 							</ul>
-						</div> -->
+						</div>
+						<div id="navmobile"><ul class="wsite-menu-default">
+								<li id="pg469433230227914766" class="wsite-menu-item-wrap">
+									<a
+											href="index.html"
+											class="wsite-menu-item"
+											>
+										Home
+									</a>
+								</li>
+								<li id="active" class="wsite-menu-item-wrap">
+									<a
+											href="citizen.html"
+											class="wsite-menu-item"
+											>
+										Citizen
+									</a>
+								</li>
+								<li id="pg176610702911461246" class="wsite-menu-item-wrap">
+									<a
+											href="business.html"
+											class="wsite-menu-item"
+											>
+										Business
+									</a>
+								</li>
+							</ul>
+						</div>
 					</div>
 					<label id="mobile-close" class="hamburger" for="mobile-input"></label>
 				</div>
 				<div id="main">
-					<!-- <div id="mobile-top">
+					<div id="mobile-top">
 						<label id="mobile-open" class="hamburger" for="mobile-input"></label>
 						<div class="sitename"><span class="wsite-logo">
 								<span class="wsite-title-placeholder">&nbsp;</span><span style="display:none">
 									<span style="display:none">cross-border_PScatalogue</span>
 								</span>
 							</span></div>
-					</div> -->
+					</div>
 					<div id="banner-wrap">
 						<div class="wsite-elements wsite-not-footer wsite-header-elements">
 							<div class="wsite-section-wrap">
-								<div  class="wsite-section wsite-header-section wsite-section-bg-image" style="height: 859px;background-image: url(&quot;/uploads/9/1/7/6/91764904/background-images/918205946.jpg&quot;) ;background-repeat: no-repeat ;background-position: 50% 50% ;background-size: 100% ;background-color: transparent ;background-size: cover;" >
+								<div  class="wsite-section wsite-header-section wsite-section-bg-image" style="height: auto;background-image: url(<!-- //TODO fix error &quot;/uploads/9/1/7/6/91764904/background-images/88384366.jpg&quot; -->) ;background-repeat: no-repeat ;background-position: undefined undefined ;background-size: 100% ;background-color: transparent ;background-size: cover;" >
 									<div class="wsite-section-content">
 										<div id="banner">
 											<div id="banner-content" class="container">
 												<div class="wsite-section-elements">
-													<div class="paragraph"><font size="2">Welcome to the Cross-Border catalogue of public services</font><br /></div>
-													<h2 class="wsite-content-title">What type of user are you?</h2>
-													<div class="wsite-spacer" style="height:50px;"></div>
-													<div><div class="wsite-multicol"><div class="wsite-multicol-table-wrap" style="margin:0 -15px;">
-																<table class="wsite-multicol-table">
-																	<tbody class="wsite-multicol-tbody">
-																		<tr class="wsite-multicol-tr">
-																			<td class="wsite-multicol-col" style="width:34.005979008451%; padding:0 15px;">
-																				<div class="wsite-spacer" style="height:50px;"></div>
-																			</td>				<td class="wsite-multicol-col" style="width:10.863021072144%; padding:0 15px;">
-																				<div style="text-align:center;"><div style="height: 10px; overflow: hidden;"></div>
-																					<a class="wsite-button wsite-button-large wsite-button-normal" href="citizen.html" >
-																						<span class="wsite-button-inner">Citizen</span>
-																					</a>
-																					<div style="height: 10px; overflow: hidden;"></div></div>
-																			</td>				<td class="wsite-multicol-col" style="width:10.893582458302%; padding:0 15px;">
-																				<div style="text-align:center;"><div style="height: 10px; overflow: hidden;"></div>
-																					<a class="wsite-button wsite-button-large wsite-button-normal" href="business.html" >
-																						<span class="wsite-button-inner">Business</span>
-																					</a>
-																					<div style="height: 10px; overflow: hidden;"></div></div>
-																			</td>				<td class="wsite-multicol-col" style="width:44.237417461103%; padding:0 15px;">
-																				<div class="wsite-spacer" style="height:50px;"></div>
-																			</td>			</tr>
-																	</tbody>
-																</table>
-															</div></div></div>
 												</div>
 											</div>
 										</div>
@@ -181,13 +179,119 @@ var STYLE_PREFIX = 'wsite';
 							</div>
 						</div>
 					</div>
+					
+					<!-- The Modal -->
+					<div id="moreInfo" class="modal">
+					  <!-- Modal content -->
+					  <div class="modal-content">
+						<div class="modal-header">
+						  <span class="closeInfo">×</span>
+						  <h2 id="modalHeader" class="modal-header"></h2>
+						</div>
+						<div class="modal-body" id="modalBody">
+						</div>
+						<div class="modal-footer">
+						  <h3 id="modalFooter"></h3>
+						</div>
+					  </div>
+					</div>
+					
 					<div id="content-wrapper">
 						<div id="wsite-content" class="wsite-elements wsite-not-footer">
 							<div class="wsite-section-wrap">
-								<div class="wsite-section wsite-body-section wsite-background-8 wsite-custom-background"  >
+								<div class="wsite-section wsite-body-section wsite-background-12 wsite-custom-background"  >
 									<div class="wsite-section-content">
 										<div class="container">
 											<div class="wsite-section-elements">
+												<div>
+													<form enctype="multipart/form-data" action="//www.weebly.com/weebly/apps/formSubmit.php"
+															method="POST" id="form-624290767276665849">
+														<div id="624290767276665849-form-parent" class="wsite-form-container"
+																style="margin-top:10px;">
+															<ul class="formlist" id="624290767276665849-form-list">
+																<h2 class="wsite-content-title"><font size="6">Search</font></h2>
+																<div><div class="wsite-multicol"><div class="wsite-multicol-table-wrap" style="margin:0 -15px;">
+																			<table class="wsite-multicol-table">
+																				<tbody class="wsite-multicol-tbody">
+																					<tr class="wsite-multicol-tr">
+																						<td class="wsite-multicol-col" style="width:26.952247418665%; padding:0 15px;">
+																							<div><div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+																									<label class="wsite-form-label" for="input-750121264269197090">Life Event</label>
+																									<div class="wsite-form-radio-container">
+																										<select name='_u750121264269197090' class='form-select' id="eventsContainer">
+																											<!-- <option value='Opción 1'>Opción 1</option>
+																											<option value='Opción 2'>Opción 2</option>
+																											<option value='Opción 3'>Opción 3</option> -->
+																										</select>
+																									</div>
+																									<div id="instructions-Life Event" class="wsite-form-instructions" style="display:none;"></div>
+																								</div></div>
+																						</td>				<td class="wsite-multicol-col" style="width:8.6097457031846%; padding:0 15px;">
+																							<div class="wsite-spacer" style="height:50px;"></div>
+																						</td>				<td class="wsite-multicol-col" style="width:34.499748842108%; padding:0 15px;">
+																							<div><div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+																									<label class="wsite-form-label" for="input-148100202566969921">Sector</label>
+																									<div class="wsite-form-radio-container" id="sectorContainer">
+																										<!-- <span class='form-radio-container'><input type='checkbox' id='checkbox-0-_u148100202566969921' name='_u148100202566969921[Opción 1]' value='1' /><label for='checkbox-0-_u148100202566969921'>Opción 1</label></span>
+																										<span class='form-radio-container'><input type='checkbox' id='checkbox-1-_u148100202566969921' name='_u148100202566969921[Opción 2]' value='1' /><label for='checkbox-1-_u148100202566969921'>Opción 2</label></span>
+																										<span class='form-radio-container'><input type='checkbox' id='checkbox-2-_u148100202566969921' name='_u148100202566969921[Opción 3]' value='1' /><label for='checkbox-2-_u148100202566969921'>Opción 3</label></span> -->
+																									</div>
+																									<div id="instructions-Sector" class="wsite-form-instructions" style="display:none;"></div>
+																								</div></div>
+																						</td>				<td class="wsite-multicol-col" style="width:8.624937210527%; padding:0 15px;">
+																							<div class="wsite-spacer" style="height:50px;"></div>
+																						</td>				<td class="wsite-multicol-col" style="width:21.313320825516%; padding:0 15px;">
+																							<div><div class="wsite-form-field" style="margin:5px 0px 0px 0px;">
+																									<label class="wsite-form-label" for="input-514317384938049784">Language</label>
+																									<div class="wsite-form-radio-container" id="languageContainer">
+																										<!-- <span class='form-radio-container'><input type='checkbox' id='checkbox-0-_u514317384938049784' name='_u514317384938049784[Opción 1]' value='1' /><label for='checkbox-0-_u514317384938049784'>Opción 1</label></span>
+																										<span class='form-radio-container'><input type='checkbox' id='checkbox-1-_u514317384938049784' name='_u514317384938049784[Opción 2]' value='1' /><label for='checkbox-1-_u514317384938049784'>Opción 2</label></span>
+																										<span class='form-radio-container'><input type='checkbox' id='checkbox-2-_u514317384938049784' name='_u514317384938049784[Opción 3]' value='1' /><label for='checkbox-2-_u514317384938049784'>Opción 3</label></span> -->
+																									</div>
+																									<div id="instructions-Language" class="wsite-form-instructions" style="display:none;"></div>
+																								</div></div>
+																						</td>			</tr>
+																				</tbody>
+																			</table>
+																		</div></div></div>
+															</ul>
+														</div>
+														<div style="display:none; visibility:hidden;">
+															<input type="text" name="wsite_subject" />
+														</div>
+														<div style="text-align:left; margin-top:10px; margin-bottom:10px;">
+															<input type="hidden" name="form_version" value="2" />
+															<input type="hidden" name="wsite_approved" id="wsite-approved" value="approved" />
+															<input type="hidden" name="ucfid" value="624290767276665849" />
+															<input type='submit' style='position:absolute;top:0;left:-9999px;width:1px;height:1px' /><a class='wsite-button' onclick="applyFilter()"><span class='wsite-button-inner'>Filter</span></a>
+															<input type='submit' style='position:absolute;top:0;left:-9999px;width:1px;height:1px' /><a class='wsite-button' onclick="initialise('LE')"><span class='wsite-button-inner'>Clear Filter</span></a>
+														</div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="wsite-section-wrap">
+								<div class="wsite-section wsite-body-section wsite-background-13 wsite-custom-background"  >
+									<div class="wsite-section-content">
+										<div class="container">
+											<div class="wsite-section-elements">
+												<h2 class="wsite-content-title"><font size="6">List of public services available</font></h2>
+												<div class="paragraph" id="listPS"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="wsite-section-wrap">
+								<div class="wsite-section wsite-body-section wsite-section-bg-color wsite-background-10 wsite-custom-background" style="background-color: #ffffff;background-image: none;" >
+									<div class="wsite-section-content">
+										<div class="container">
+											<div class="wsite-section-elements">
+												<h2 class="wsite-content-title"><font><font><font><font><font><font><font size="7" id="title"></font></font></font></font></font></font></font></h2>
+												<div class="paragraph" id="description"></div>
 											</div>
 										</div>
 									</div>

@@ -8,7 +8,7 @@ function clean(){
 
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/clear.php",
+		url: "http://localhost:80/harvesterPilot/pages/clear.php",
 		data: { },
 		async: false,
 		success: function (response) {
@@ -33,7 +33,7 @@ function harvest(){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/harvest.php",
+		url: "http://localhost:80/harvesterPilot/pages/harvest.php",
 		data: { p: '1' },
 		async: false,
 		success: function (response) {
@@ -163,7 +163,7 @@ function appendContent (cell, v, style){
 function getPropertyName(propURI){
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getProperties.php",
+		url: "http://localhost:80/harvesterPilot/pages/getProperties.php",
 		data: { "p":propURI },
 		async: false,
 		success: function (response) {
@@ -284,7 +284,7 @@ function getStoredData (){
 			endpoint = xhttp.responseText;
 			}
 	};
-	xhttp.open("GET", "http://localhost:80/harvesterPilotHTML/pages/getEndPoint.php", false); //synchronized
+	xhttp.open("GET", "http://localhost:80/harvesterPilot/pages/getEndPoint.php", false); //synchronized
 	xhttp.send();
 	
 	if (endpoint != "") {
@@ -294,7 +294,7 @@ function getStoredData (){
 				result = xhttp2.responseText;
 			}
 		};
-		xhttp2.open("GET", "http://localhost:80/harvesterPilotHTML/pages/show.php", false); //synchronized
+		xhttp2.open("GET", "http://localhost:80/harvesterPilot/pages/show.php", false); //synchronized
 		xhttp2.send();
 		
 	}
@@ -543,7 +543,7 @@ function getTriplesURI(URI, classType){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getTriplesURI.php",
+		url: "http://localhost:80/harvesterPilot/pages/getTriplesURI.php",
 		data: { "URI":URI, "class":classType },
 		async: false,
 		success: function (response) {
@@ -592,7 +592,7 @@ function getPublicServices (country){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getPS.php",
+		url: "http://localhost:80/harvesterPilot/pages/getPS.php",
 		data: { "country":country },
 		async: false,
 		success: function (response) {
@@ -608,8 +608,24 @@ function getPublicServicesEvent (country, evURI){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getPSEvent.php",
+		url: "http://localhost:80/harvesterPilot/pages/getPSEvent.php",
 		data: { "country":country, "ev":evURI },
+		async: false,
+		success: function (response) {
+			ps = response;
+		},
+	});
+	
+	return ps;
+}
+
+function getListPublicServices (typeEvent){
+	var ps="";
+	
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:80/harvesterPilot/pages/getListPS.php",
+		data: { "ev":typeEvent },
 		async: false,
 		success: function (response) {
 			ps = response;
@@ -624,7 +640,7 @@ function getEvents (country){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getEvents.php",
+		url: "http://localhost:80/harvesterPilot/pages/getEvents.php",
 		data: { "country":country },
 		async: false,
 		success: function (response) {
@@ -633,6 +649,39 @@ function getEvents (country){
 	});
 	
 	return ev;
+}
+
+function getSector (typeEvent){
+	var sec="";
+	
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:80/harvesterPilot/pages/getSector.php",
+		data: { "type":typeEvent },
+		async: false,
+		success: function (response) {
+			sec = response;
+		},
+	});
+	
+	return sec;
+}
+
+
+function getLanguage (typeEvent){
+	var lang="";
+	
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:80/harvesterPilot/pages/getLanguage.php",
+		data: { "type":typeEvent },
+		async: false,
+		success: function (response) {
+			lang = response;
+		},
+	});
+	
+	return lang;
 }
 
 function initialisePS (country, evURI) {
@@ -710,24 +759,92 @@ function initialisePSEU (evURI) {
 	}
 }
 
-function initialise (country) {
-	var events = getEvents (country);
+function initialiseSector (type) {
+	var sectors = getSector (type);
+	
+	var i=0, uri="", name="", row="", aux="";
+	
+	aux = sectors.split("\n");
+	
+	var sectors = document.getElementById("sectorContainer");
+	sectors.innerHTML = "";
+	for (i=0; i<aux.length-1; i++){
+		uri = aux[i];
+		row = uri.split("/");
+		name = row[row.length-1];
+		sectors.innerHTML = sectors.innerHTML + "<span class='form-radio-container'><input type='checkbox' id='checkbox-" + i + "-_u904997771784187993' name='checkSector' value='" + uri.substring(0, uri.length-1) + "' /><label for='checkbox-" + i + "-_u904997771784187993'>" + name.substring(0, name.length-1) + "</label></span>";
+		
+	}
+}
+
+function initialiseLanguage (type) {
+	var lang = getLanguage (type);
+	
+	var i=0, uri="", name="", row="", aux="";
+	
+	aux = lang.split("\n");
+	
+	var lang = document.getElementById("languageContainer");
+	lang.innerHTML = "";
+	for (i=0; i<aux.length-1; i++){
+		uri = aux[i];
+		row = uri.split("/");
+		name = row[row.length-1];
+		lang.innerHTML = lang.innerHTML + "<span class='form-radio-container'><input type='checkbox' id='checkbox-"+ i + "-_u953317408302598336' name='checkLanguage' value='" + uri.substring(0, uri.length-1) + "' /><label for='checkbox-"+ i + "-_u953317408302598336'>" + name.substring(0, name.length-1) + "</label></span>";
+	}
+}
+
+function initialiseListPS (typeEvent) {
+	var i=0, auxps = "", uri="", title="", row="", props="", desc="", cad="", origin="", aux="";
+	var ps = document.getElementById("listPS");
+	
+	ps.innerHTML = "Loading list of public services";
+	
+	props = getListPublicServices (typeEvent);
+	
+	auxps = props.split("##");	
+	for (i=0; i<auxps.length-1; i++){
+		row = auxps[i].split("@#");
+		if (i>0) { 
+			aux = row[0].split("\n"); //Remove the first character, which is \n (introduced by python)
+			uri = aux[1]; 
+		}
+		else
+		uri = row[0];
+		origin = row[1];
+		title = row[2];
+		desc = row[3];
+		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
+	}
+	
+	ps.innerHTML = cad;
+}
+
+function initialise (type) {
+	var events = getEvents ("Not");
 	
 	var i=0, uri="", name="", row="", auxevents="";
 	
 	auxevents = events.split("\n");
 	
-	var events = document.getElementById("EventsContainer");
+	var events = document.getElementById("eventsContainer");
 	events.innerHTML = "";
+	events.innerHTML = "<option id='All' name='checkEv' value='Option" + 0 + "'>All</option>";
 	for (i=0; i<auxevents.length-1; i++){
 		row = auxevents[i].split("@#");
-		events.innerHTML = events.innerHTML + "<span class='form-radio-container'><input type='checkbox' id='" + row[1] + "' name='checkEv' value='Option" + i + "' /><label for='checkbox-" + i + "-_u648477312652755993'> " + row[0] + " - " + row[2] + "</label></span>";
+		if (row[0] == type)
+			events.innerHTML = events.innerHTML + "<option id='" + row[1] + "' name='checkEv' value='Option" + parseInt(i+1) + "'>" + row[2] + "</option>";
 	}
 	
-	if (country != "Not")
-		initialisePS (country, "");
-	else
-		initialisePSEU ("");
+	initialiseSector(type);
+	initialiseLanguage(type);
+	initialiseListPS(type);
+	
+	var titleps = document.getElementById("title");
+	titleps.innerHTML = " ";
+	
+	var descps = document.getElementById("description");
+	descps.innerHTML = " ";
 }
 
 function getSelectedPS () {
@@ -765,19 +882,41 @@ function getSelectedPSEU (country) {
 }
 
 function getSelectedEvent () {
-	var radios = document.getElementsByName('checkEv');
-	var check = false, i=0, uris="";
+	var events = document.getElementById ("eventsContainer");
+	var uri="";
+	
+	uri = events.options[events.selectedIndex].id;
+
+	return uri;
+}
+
+function getSelectedSector () {
+	var radios = document.getElementsByName('checkSector');
+	var i=0, uris="";
 	for ( i = 0; i < radios.length; i++) {
 		if(radios[i].checked) {
-			check = true;
-			uris = uris + "@#" + radios[i].getAttribute("id");
+			if (uris == "")
+				uris = radios[i].getAttribute("value");
+			else
+				uris = uris + "@#" + radios[i].getAttribute("value");
 		}
 	}
-	if(!check)   { //payment method button is not checked
-		alert("Please choose an Event to display");
-		uris="";
-	}
+	
+	return uris;
+}
 
+function getSelectedLanguage () {
+	var radios = document.getElementsByName('checkLanguage');
+	var i=0, uris="";
+	for ( i = 0; i < radios.length; i++) {
+		if(radios[i].checked) {
+			if (uris == "")
+				uris = radios[i].getAttribute("value");
+			else
+				uris = uris + "@#" + radios[i].getAttribute("value");
+		}
+	}
+	
 	return uris;
 }
 
@@ -786,7 +925,7 @@ function getURIProps (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getURIprops.php",
+		url: "http://localhost:80/harvesterPilot/pages/getURIprops.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -802,7 +941,7 @@ function getMoreInfoURI (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getMoreInfo.php",
+		url: "http://localhost:80/harvesterPilot/pages/getMoreInfo.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -818,7 +957,7 @@ function getURIShowProperty (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotHTML/pages/getURIShowProp.php",
+		url: "http://localhost:80/harvesterPilot/pages/getURIShowProp.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -838,7 +977,7 @@ function updateInfo (field, title, list) {
 		aux=props[i].split("@#");
 		prop=aux[0];
 		value=aux[1];
-		name = prop;
+		name = prop
 		if(prop != "") {
 			if(prop == "Name") {
 				title.innerHTML = value;
@@ -997,3 +1136,88 @@ function getMoreInfo (uri, uriName) {
 		}
 	}
 }
+
+function getPSInfo (uri) {
+	var props="";
+	
+	var desc = document.getElementById("description");
+	var title = document.getElementById("title");
+
+	title.innerHTML = "";
+	desc.innerHTML = "Loading description...";
+	
+	//show the Public Service properties
+	props = getURIProps(uri);
+	updateInfo(desc, title, props);
+}
+
+function updateListPS (list) {
+	var i=0, auxps = "", uri="", title="", row="", desc="", cad="", origin="", aux="";
+	var ps = document.getElementById("listPS");
+	
+	ps.innerHTML = "Loading list of public services";
+	
+	auxps = list.split("##");	
+	for (i=0; i<auxps.length-1; i++){
+		row = auxps[i].split("@#");
+		if (i>0) { 
+			aux = row[0].split("\n"); //Remove the first character, which is \n (introduced by python)
+			uri = aux[1]; 
+		}
+		else
+		uri = row[0];
+		origin = row[1];
+		title = row[2];
+		desc = row[3];
+		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
+	}
+	
+	ps.innerHTML = cad;
+	
+	var titleps = document.getElementById("title");
+	titleps.innerHTML = "";
+	
+	var descps = document.getElementById("description");
+	descps.innerHTML = "";
+}
+
+
+function applyFilter () {
+	var event = getSelectedEvent ();
+	var sector = getSelectedSector ();
+	var lang = getSelectedLanguage ();
+	
+	var s="", l="";
+	
+	var ps = document.getElementById("listPS");
+	ps.innerHTML = "Loading list of public services";
+	var titleps = document.getElementById("title");
+	titleps.innerHTML = " ";	
+	var descps = document.getElementById("description");
+	descps.innerHTML = " ";
+	
+	if (sector == "")
+		s = "NoSector";
+	else
+		s = sector;
+	
+	if (lang == "")
+		l = "NoLang";
+	else
+		l = lang;
+	
+	var cad="";
+	$.ajax({
+		type: "GET",
+		url: "http://localhost:80/harvesterPilot/pages/getPSFilter.php",
+		data: { "ev":event, "sector":s, "lang":l },
+		async: false,
+		success: function (response) {
+			cad = response;
+		},
+	});
+	
+	updateListPS(cad);
+	
+}
+
