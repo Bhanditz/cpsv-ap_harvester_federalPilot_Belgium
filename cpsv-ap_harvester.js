@@ -668,7 +668,7 @@ function getSector (typeEvent){
 }
 
 
-function getLanguage (typeEvent){
+/* function getLanguage (typeEvent){
 	var lang="";
 	
 	$.ajax({
@@ -682,7 +682,7 @@ function getLanguage (typeEvent){
 	});
 	
 	return lang;
-}
+} */
 
 function initialisePS (country, evURI) {
 	var i=0, auxps = "", uri="", name="", row="", props="", j=0, auxev="", ev="";
@@ -777,7 +777,7 @@ function initialiseSector (type) {
 	}
 }
 
-function initialiseLanguage (type) {
+/* function initialiseLanguage (type) {
 	var lang = getLanguage (type);
 	
 	var i=0, uri="", name="", row="", aux="";
@@ -792,7 +792,7 @@ function initialiseLanguage (type) {
 		name = row[row.length-1];
 		lang.innerHTML = lang.innerHTML + "<span class='form-radio-container'><input type='checkbox' id='checkbox-"+ i + "-_u953317408302598336' name='checkLanguage' value='" + uri.substring(0, uri.length-1) + "' /><label for='checkbox-"+ i + "-_u953317408302598336'>" + name.substring(0, name.length-1) + "</label></span>";
 	}
-}
+} */
 
 function initialiseListPS (typeEvent) {
 	var i=0, auxps = "", uri="", title="", row="", props="", desc="", cad="", origin="", aux="";
@@ -837,7 +837,7 @@ function initialise (type) {
 	}
 	
 	initialiseSector(type);
-	initialiseLanguage(type);
+	/* initialiseLanguage(type); */
 	initialiseListPS(type);
 	
 	var titleps = document.getElementById("title1");
@@ -908,7 +908,7 @@ function getSelectedSector () {
 	return uris;
 }
 
-function getSelectedLanguage () {
+/* function getSelectedLanguage () {
 	var radios = document.getElementsByName('checkLanguage');
 	var i=0, uris="";
 	for ( i = 0; i < radios.length; i++) {
@@ -921,7 +921,7 @@ function getSelectedLanguage () {
 	}
 	
 	return uris;
-}
+} */
 
 function getURIProps (uri) {
 	var props="";
@@ -1082,7 +1082,7 @@ function getMoreInfo (uri, uriName) {
 		
 		props = props.split("##");
 		
-		bodyText = "<p><b>Identifier</b>: " + uri + "</p>";
+		bodyText = "<div><b>Identifier</b>: " + uri + "</div>";
 		
 		body = document.getElementById('modalBody');
 		body.innerHTML = bodyText;
@@ -1114,13 +1114,13 @@ function getMoreInfo (uri, uriName) {
 		
 		props = props.split("##");
 		
-		bodyText = "<p><b>Identifier</b>: " + uri + "</p>";
+		bodyText = "<div><b>Identifier</b>: " + uri + "</div>";
 		
 		for (i=1; i<props.length; i++) {
 			aux = props[i].split("@#");
 			name = aux[0];
 			value = aux[1];
-			bodyText = bodyText + "<p><b>" + name + "</b>: " + value + "</p>";
+			bodyText = bodyText + "<div><b>" + name + "</b>: " + value + "</div>";
 		}
 		
 		body = document.getElementById('modalBody');
@@ -1200,7 +1200,7 @@ function updateListPS (list) {
 function applyFilter () {
 	var event = getSelectedEvent ();
 	var sector = getSelectedSector ();
-	var lang = getSelectedLanguage ();
+	/* var lang = getSelectedLanguage (); */
 	
 	var s="", l="";
 	
@@ -1220,16 +1220,16 @@ function applyFilter () {
 	else
 		s = sector;
 	
-	if (lang == "")
+	/* if (lang == "")
 		l = "NoLang";
 	else
-		l = lang;
+		l = lang; */
 	
 	var cad="";
 	$.ajax({
 		type: "GET",
 		url: "http://localhost:80/harvesterPilotHTML/pages/getPSFilter.php",
-		data: { "ev":event, "sector":s, "lang":l },
+		data: { "ev":event, "sector":s/* , "lang":l */ },
 		async: false,
 		success: function (response) {
 			cad = response;

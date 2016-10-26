@@ -30,7 +30,7 @@ config.read('config.ini')
 
 ev = sys.argv[1]
 sector = sys.argv[2]
-lang = sys.argv[3]
+# lang = sys.argv[3]
 
 endpoint_uri = config['Mandatory']['endpointURI']
 graph_uri = config['Mandatory']['graphURI']
@@ -71,15 +71,15 @@ if sector != "NoSector":
 else:
 	sectorquery = ""
 
-langquery = ""
-if lang != "NoLang":
-	aux = lang.split('@#', lang.count("@#") )
-	for x in aux:
-		langquery = langquery + "; <http://purl.org/dc/terms/language> <" + x + ">"
-else:
-	langquery = ""
+# langquery = ""
+# if lang != "NoLang":
+	# aux = lang.split('@#', lang.count("@#") )
+	# for x in aux:
+		# langquery = langquery + "; <http://purl.org/dc/terms/language> <" + x + ">"
+# else:
+	# langquery = ""
 	
-query = "select ?uri ?origin ?name ?desc where {?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>"+ langquery + evquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}" + sectorquery + "}"
+query = "select ?uri ?origin ?name ?desc where {?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}" + sectorquery + "}"
 urls = g.query (query)
 
 for row in urls:

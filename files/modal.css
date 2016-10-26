@@ -41,7 +41,7 @@
 
 /* The closeInfo Button */
 .closeInfo {
-	color: white;
+	color: #333333;
 	float: right;
 	/* font-size: 28px; */
 	font-weight: bold;
@@ -59,11 +59,9 @@
 }
 
 .modal-header {
-	padding: 2px 16px;
-	/* background-color: #5cb85c; */
+	padding: 2px 8px;
 	background-color: #b3b3b3;
 	color: "white" !important;
-	
 	font-family: "Open Sans" !important;
 	font-size: 22px !important;
 	line-height: 60px !important;
