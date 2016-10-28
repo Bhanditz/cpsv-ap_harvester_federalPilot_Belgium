@@ -3,7 +3,7 @@
 	<head>
 		<title>Business - cross-border_PScatalogue</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0;">
+		<meta name="viewport" content="width=device-width; initial-scale=1.0;">
 			<link id="wsite-base-style" rel="stylesheet" type="text/css" href="http://cdn2.editmysite.com/css/sites.css?buildTime=1234" />
 			<link rel="stylesheet" type="text/css" href="http://cdn2.editmysite.com/css/old/fancybox.css?1234" />
 			<link rel="stylesheet" type="text/css" href="http://cdn2.editmysite.com/css/social-icons.css?buildtime=1234" media="screen,projection" />
@@ -78,6 +78,7 @@ var STYLE_PREFIX = 'wsite';
 			<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 			
 			<link rel="stylesheet" type="text/css" href="files/modal.css" />
+			<link rel="stylesheet" type="text/css" href="files/listPS-style.css" />
 			
 		</head>
 		<body class="header-page  wsite-page-business  wsite-theme-light"><div id="wrapper">
@@ -225,18 +226,31 @@ var STYLE_PREFIX = 'wsite';
 									</div>
 								</div>
 							</div>
+							
 							<div class="wsite-section-wrap">
 								<div class="wsite-section wsite-body-section wsite-background-13 wsite-custom-background"  >
 									<div class="wsite-section-content">
 										<div class="container">
 											<div class="wsite-section-elements">
 												<h2 class="wsite-content-title"><font size="6">List of public services available</font></h2>
-												<div class="paragraph" id="listPS"></div>
+												<table class="tableListPS">
+													<thead class="table-header">
+														<tr>
+															<th class="table-col-origin">Origin</th>
+															<th class="table-col-description">Public Service</th>
+															<th class="table-col-knowmore">Know more</th>
+														</tr>
+													</thead>																				
+													<tbody class="table-body" id="listPS">
+													</tbody>
+													</table>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
 							</div>
+							
 							<div class="wsite-section-wrap">
 								<div class="wsite-section wsite-body-section wsite-section-bg-color wsite-background-10 wsite-custom-background" style="background-color: #ffffff;background-image: none;" >
 									<div class="wsite-section-content">
@@ -276,12 +290,11 @@ var STYLE_PREFIX = 'wsite';
 								</div>
 							</div>
 						</div>
-					</div>
-					
-					<div id="content-wrapper">
+						
+						<div id="content-wrapper">
 						<div id="wsite-content" class="wsite-elements wsite-not-footer">
 							<div class="wsite-section-wrap">
-								<div class="wsite-section wsite-body-section wsite-section-bg-color wsite-background-8 wsite-custom-background" style="height: auto;background-color: #d9d9d9;background-image: none;" >
+								<div class="wsite-section wsite-body-section wsite-section-bg-color wsite-background-8 wsite-custom-background" style="height: auto;background-color: #bfbfbf;background-image: none;" >
 									<div class="wsite-section-content">
 										<div class="container">
 											<div class="wsite-section-elements">
@@ -324,6 +337,8 @@ var STYLE_PREFIX = 'wsite';
 								</div>
 							</div>
 						</div>
+					</div>
+						
 					</div>
 					
 				</div>

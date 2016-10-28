@@ -798,7 +798,7 @@ function initialiseListPS (typeEvent) {
 	var i=0, auxps = "", uri="", title="", row="", props="", desc="", cad="", origin="", aux="";
 	var ps = document.getElementById("listPS");
 	
-	ps.innerHTML = "Loading list of public services";
+	ps.innerHTML = "<tr><td/><td>Loading list of public services</td><td/></tr>";
 	
 	props = getListPublicServices (typeEvent);
 	
@@ -814,7 +814,8 @@ function initialiseListPS (typeEvent) {
 		origin = row[1];
 		title = row[2];
 		desc = row[3];
-		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
+		/* cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>"; */
+		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer; text-align: center;'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
 	}
 	
 	ps.innerHTML = cad;
@@ -1164,7 +1165,7 @@ function updateListPS (list) {
 	var i=0, auxps = "", uri="", title="", row="", desc="", cad="", origin="", aux="";
 	var ps = document.getElementById("listPS");
 	
-	ps.innerHTML = "Loading list of public services";
+	ps.innerHTML = "<tr><td/><td>Loading list of public services</td><td/></tr>";
 	
 	auxps = list.split("##");	
 	for (i=0; i<auxps.length-1; i++){
@@ -1178,7 +1179,8 @@ function updateListPS (list) {
 		origin = row[1];
 		title = row[2];
 		desc = row[3];
-		cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>";
+		/* cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>"; */
+		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
 	}
 	
 	ps.innerHTML = cad;
@@ -1205,7 +1207,7 @@ function applyFilter () {
 	var s="", l="";
 	
 	var ps = document.getElementById("listPS");
-	ps.innerHTML = "Loading list of public services";
+	ps.innerHTML = "<tr><td/><td>Loading list of public services</td><td/></tr>";
 	var titleps = document.getElementById("title1");
 	titleps.innerHTML = " ";	
 	var descps = document.getElementById("description1");
