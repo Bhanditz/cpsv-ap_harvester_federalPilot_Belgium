@@ -62,24 +62,19 @@ first = "true"
 if sector != "NoSector":
 	aux = sector.split("@#", sector.count("@#") )
 	for x in aux:
-		if first == "true":
-			first = "false"
-			sectorquery = ". OPTIONAL{ ?uri <http://data.europa.eu/m8g/sector> <" + x + ">"
-		else:
-			sectorquery = sectorquery + ". ?uri <http://data.europa.eu/m8g/sector> <" + x + ">"
-	sectorquery = sectorquery + "}"
+		aux2 = x.split("##", x.count("##") )
+		sectorquery = sectorquery + ". ?uri <http://data.europa.eu/m8g/sector> '"
+		for y in aux2:
+			if first == "true":
+				sectorquery = sectorquery + y
+				first = "false"
+			else:
+				sectorquery = sectorquery + " " + y
+		sectorquery = sectorquery + "'"
 else:
 	sectorquery = ""
-
-# langquery = ""
-# if lang != "NoLang":
-	# aux = lang.split('@#', lang.count("@#") )
-	# for x in aux:
-		# langquery = langquery + "; <http://purl.org/dc/terms/language> <" + x + ">"
-# else:
-	# langquery = ""
 	
-query = "select ?uri ?origin ?name ?desc where {?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}" + sectorquery + "}"
+query = "select ?uri ?origin ?name ?desc where {{ ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + sectorquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}} UNION { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>. OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}. FILTER(!EXISTS {?uri <http://data.europa.eu/m8g/sector> ?sector})} }"
 urls = g.query (query)
 
 for row in urls:

@@ -12,7 +12,7 @@
  #main { position: relative; left: 0; display: block; padding: 40px 40px 40px 245px; vertical-align: top; }
  .container { width: 100%; margin: 0; padding: 40px; box-sizing: border-box; z-index: 12; }
  .wsite-section-wrap { position: relative; margin: 0 auto 2em; }
- #wsite-title, h2 { font-family: "Maven Pro", sans-serif; font-weight: 900 !important; line-height: 1 !important; text-transform: uppercase; }
+ #wsite-title, h2 { font-family: "Montserrat"; font-weight: 900 !important; line-height: 35px !important; font-style: normal !important; text-transform: uppercase; letter-spacing: 5px !important; }
  .sitename { margin: 0 auto 1em; }
  #wsite-title { font-size: 1.5em; display: inline-block; background: #000; color: #ffffff; padding: .1em .25em .15em; }
  .wsite-logo a img { max-width: 165px; }
@@ -21,7 +21,7 @@
  div.paragraph, p { font-size: 1.15em; margin: 0 auto 2em; line-height: 1.75; word-wrap: break-word; }
  blockquote { color: #3f3f3f; font: 1.15em/1.5 "Maven Pro", sans-serif; font-weight: 900; font-style: italic; margin: 2em 3em !important; padding: 0 !important; border: none !important; text-transform: uppercase; }
  .wsite-image { font-family: "Maven Pro", sans-serif; font-weight: 700; }
- h2 { font-size: 1.5em; margin: 0 auto 1em; }
+ h2 { font-size: 1.5em; margin: 0 auto 15px; }
  .container .paragraph a, .blog-read-more a, #commentUserInfo a { color: white; }
  .container .paragraph a:hover, .container .paragraph a:focus, #commentUserInfo a:hover, #commentUserInfo a:focus { border-bottom: 1px solid #b3b3b3; }
  @media (max-width: 991px) {
@@ -166,7 +166,7 @@
  .form-required { color: #000000; font-weight: normal !important; }
  .wsite-form-input, .wsite-form-field select, .wsite-com-product-option select, .wsite-com-checkout-section .wsite-form-field select, .wsite-com-checkout-section .wsite-form-field input { height: auto; font-size: 1.15em; font-family: 'Times New Roman', Times, serif; color: #000000; background: #ffffff; padding: 12px !important; border-radius: 0 !important; border: 1px solid #cccccc; -webkit-box-shadow: 0px 4px 0px 0px transparent; -moz-box-shadow: 0px 4px 0px 0px transparent; box-shadow: 0px 4px 0px 0px transparent; }
  .wsite-form-input:focus, .wsite-form-input--focus { border-bottom: 0; padding: 12px 12px 13px !important; -webkit-box-shadow: 0px 4px 0px 0px #000000; -moz-box-shadow: 0px 4px 0px 0px #000000; box-shadow: 0px 4px 0px 0px #000000; }
- .wsite-form-field select, .wsite-com-product-option select, .wsite-com-checkout-section .wsite-form-field select { height: 46px; border: none; -webkit-appearance: none; -moz-appearance: none; background: #efefef url(theme/images/dropdown.png?1477581712) no-repeat center right; }
+ .wsite-form-field select, .wsite-com-product-option select, .wsite-com-checkout-section .wsite-form-field select { height: 46px; border: none; -webkit-appearance: none; -moz-appearance: none; background: #e6e6e6 url(theme/images/dropdown.png?1477581712) no-repeat center right; }
  .wsite-search-element-input, #wsite-search-query { font-size: 1.15em; font-family: 'Times New Roman', Times, serif; color: #000000; background: #ffffff; padding: 8px 40px 8px 16px !important; border: 1px solid #cccccc; border-radius: 20px !important; }
  #wsite-search-header { border: none; width: 70%; }
  #wsite-search-header h2 { font-weight: 900; font-size: 28px; width: auto !important; margin-right: 40px; padding: 6px 0 0; text-align: left; }

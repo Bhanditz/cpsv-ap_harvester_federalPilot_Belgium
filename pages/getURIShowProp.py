@@ -51,10 +51,10 @@ urls = g.query (query)
 for row in urls:
 	name = str(row[0])
 	if row[1] is None:
-		print (name + "@#" + "NoValue")
+		print (name + "@#" + "NoValue" + "##")
 	else:
 		value = str(row[1])
-		print (name + "@#" + value)
+		print (name + "@#" + value + "##")
 
 # Cleanup the graph instance
 g.close()

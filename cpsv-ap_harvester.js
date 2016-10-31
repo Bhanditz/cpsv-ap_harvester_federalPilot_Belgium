@@ -815,7 +815,7 @@ function initialiseListPS (typeEvent) {
 		title = row[2];
 		desc = row[3];
 		/* cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>"; */
-		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer; text-align: center;'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
+		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td class='table-col-knowmore' onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer; text-align: center;'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
 	}
 	
 	ps.innerHTML = cad;
@@ -973,7 +973,7 @@ function getURIShowProperty (uri) {
 }
 
 function updateInfo (field, title, list, origin) {
-	var props="", aux="", i, prop="", value="", name="", cad="", show="", auxshow="", j, uri, propName, result="";
+	var props="", aux="", i, prop="", value="", name="", cad="", show="", auxshow="", j, uri, propName, result="", propValue="";
 	
 	props=list.split("\n");
 	
@@ -994,15 +994,15 @@ function updateInfo (field, title, list, origin) {
 					if (show == "")
 						cad = cad + "<div><b>" + name + "</b>: " + uri + "</div>";
 					else {
-						auxshow = show.split("\n");
+						auxshow = show.split("##");
 						for (j=0; j<auxshow.length-1; j++){
 							result = auxshow[j].split("@#");
 							propName = result[0];
-							value = result[1];
-							if (value.substring(0, value.length-1) != "NoValue")
-								cad = cad + "<div onclick='getMoreInfo(&#39;" + uri + "&#39;, &#39;" + name + "&#39;)' style='cursor:pointer'><b>" + name + ":</b> " + value + "</div>";
+							propValue = result[1];
+							if (propValue != "NoValue")
+								cad = cad + "<div onclick='getMoreInfo(&#39;" + uri + "&#39;, &#39;" + name + "&#39;)' style='cursor:pointer'><b>" + name + ":</b> <u>" + propValue + "</u></div>";
 							else
-								cad = cad + "<div onclick='getMoreInfo(&#39;" + uri + "&#39;, &#39;" + name + "&#39;)' style='cursor:pointer'><b>" + name + ":</b> There is no " + propName + " for " + name + ". Click for more information.</div>";
+								cad = cad + "<div onclick='getMoreInfo(&#39;" + uri + "&#39;, &#39;" + name + "&#39;)' style='cursor:pointer'><b>" + name + ":</b> <u>There is no " + propName + " for " + name + ". Click for more information.</u></div>";
 						}
 					}
 				}
@@ -1180,7 +1180,7 @@ function updateListPS (list) {
 		title = row[2];
 		desc = row[3];
 		/* cad = cad + "<div onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><b>" + origin + " - " + title + ":</b> " + desc + "</div>"; */
-		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
+		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td class='table-col-knowmore' onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
 	}
 	
 	ps.innerHTML = cad;
@@ -1220,12 +1220,13 @@ function applyFilter () {
 	if (sector == "")
 		s = "NoSector";
 	else
-		s = sector;
+		s = sector.replace(/ /g, "##");
 	
 	/* if (lang == "")
 		l = "NoLang";
 	else
 		l = lang; */
+	
 	
 	var cad="";
 	$.ajax({
