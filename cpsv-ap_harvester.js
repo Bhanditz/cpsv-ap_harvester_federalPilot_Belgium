@@ -1183,6 +1183,7 @@ function updateListPS (list) {
 		cad = cad + "<tr><td><b>" + origin + "</b></td><td><b>" + title + ":</b> " + desc + "</td><td class='table-col-knowmore' onclick='getPSInfo(&#39;" + uri + "&#39;, &#39;" + origin + "&#39;)' style='cursor:pointer'><img src='images/info2.png' alt='Imagen' style='width:136;max-width:60%;' /></td></tr>";
 	}
 	
+	if (cad == "") cad = "<tr><td/><td>There is no public service found under that criteria.</td><td/></tr>";
 	ps.innerHTML = cad;
 	
 	var titleps = document.getElementById("title1");

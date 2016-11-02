@@ -74,7 +74,7 @@ if sector != "NoSector":
 else:
 	sectorquery = ""
 	
-query = "select ?uri ?origin ?name ?desc where {{ ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + sectorquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}} UNION { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>. OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}. FILTER(!EXISTS {?uri <http://data.europa.eu/m8g/sector> ?sector})} }"
+query = "select ?uri ?origin ?name ?desc where {{ ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + sectorquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}} UNION { ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://purl.org/vocab/cpsv#PublicService>" + evquery + ". OPTIONAL{?uri <http://purl.org/dc/terms/title> ?name}. OPTIONAL{?uri <http://purl.org/dc/terms/description> ?desc}. OPTIONAL{?uri <http://origin> ?origin}. FILTER(!EXISTS {?uri <http://data.europa.eu/m8g/sector> ?sector})} }"
 urls = g.query (query)
 
 for row in urls:
