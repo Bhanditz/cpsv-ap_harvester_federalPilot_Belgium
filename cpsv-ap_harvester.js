@@ -8,7 +8,7 @@ function clean(){
 
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/clear.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/clear.php",
 		data: { },
 		async: false,
 		success: function (response) {
@@ -33,7 +33,7 @@ function harvest(){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/harvest.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/harvest.php",
 		data: { p: '1' },
 		async: false,
 		success: function (response) {
@@ -163,7 +163,7 @@ function appendContent (cell, v, style){
 function getPropertyName(propURI){
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getProperties.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getProperties.php",
 		data: { "p":propURI },
 		async: false,
 		success: function (response) {
@@ -281,7 +281,7 @@ function getStoredData (){
 			endpoint = xhttp.responseText;
 			}
 	};
-	xhttp.open("GET", "http://localhost:80/harvesterPilotFederal/pages/getEndPoint.php", false); //synchronized
+	xhttp.open("GET", "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getEndPoint.php", false); //synchronized
 	xhttp.send();
 	
 	if (endpoint != "") {
@@ -291,7 +291,7 @@ function getStoredData (){
 				result = xhttp2.responseText;
 			}
 		};
-		xhttp2.open("GET", "http://localhost:80/harvesterPilotFederal/pages/show.php", false); //synchronized
+		xhttp2.open("GET", "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/show.php", false); //synchronized
 		xhttp2.send();
 		
 	}
@@ -540,7 +540,7 @@ function getTriplesURI(URI, classType){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getTriplesURI.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getTriplesURI.php",
 		data: { "URI":URI, "class":classType },
 		async: false,
 		success: function (response) {
@@ -584,46 +584,11 @@ function updateDetailData (URI, classType) {
 	
 }
 
-/**
- * Get all the public services from a determined country.
- * #param {string} country - Name of the origin country from where to get the PSs.
- */
-function getPublicServices (country){
-	var ps="";
-	
-	$.ajax({
-		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getPS.php",
-		data: { "country":country },
-		async: false,
-		success: function (response) {
-			ps = response;
-		},
-	});
-	
-	return ps;
-}
 
-/**
- * Get all the public services from a determined country filtered by type of event (Life or Business event).
- * #param {string} country - Name of the origin country from where to get the PSs.
- * #param {string} evURI - URI of the event.
- */
-function getPublicServicesEvent (country, evURI){
-	var ps="";
-	
-	$.ajax({
-		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getPSEvent.php",
-		data: { "country":country, "ev":evURI },
-		async: false,
-		success: function (response) {
-			ps = response;
-		},
-	});
-	
-	return ps;
-}
+
+/* PILOT FUNCTIONS */
+
+
 
 /**
  * Get all the public services from a determined type of event (Life or Business event). The list contains the URI of the PS, origin, title and description.
@@ -634,7 +599,7 @@ function getListPublicServices (typeEvent){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getListPS.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getListPS.php",
 		data: { "ev":typeEvent },
 		async: false,
 		success: function (response) {
@@ -654,7 +619,7 @@ function getEvents (country){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getEvents.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getEvents.php",
 		data: { "country":country },
 		async: false,
 		success: function (response) {
@@ -674,7 +639,7 @@ function getSector (typeEvent){
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getSector.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getSector.php",
 		data: { "type":typeEvent },
 		async: false,
 		success: function (response) {
@@ -685,42 +650,13 @@ function getSector (typeEvent){
 	return sec;
 }
 
-/**
- * Initialisation of the pages. Initialisation of the public services.
- * #param {string} country - Name of the origin country from where to get the PSs.
- * #param {string} evURI - URI of the event.
- */
-function initialisePS (country, evURI) {
-	var i=0, auxps = "", uri="", name="", row="", props="", j=0, auxev="", ev="";
-	var ps = document.getElementById("PSContainer");
-	
-	ps.innerHTML = "";
-	
-	if(evURI == "") {
-		props = getPublicServices (country);
-	}
-	else {
-		auxev = evURI.split("@#");
-		for (j=0; j<auxev.length; j++){
-			ev = auxev[j];
-			if(ev != "")
-				props = props + getPublicServicesEvent (country, ev);
-		}
-	}
-	
-	auxps = props.split("\n");
-		
-	for (i=0; i<auxps.length-1; i++){
-		row = auxps[i].split("@#");
-		ps.innerHTML = ps.innerHTML + "<div class='form-radio-container'><input type='radio' id='" + row[0] + "' name='radioPS' value='Option " + i + "' /><label for='radio-" + i + "-_u916548098853793411'> " + row[1] + "</label></div>";
-	}
-}
 
 /**
  * Initialisation of the pages. Initialisation of the list of sectors to filter.
  * #param {string} type - BE or LE, depending of the type of page (business or citizens HTML).
  */
 function initialiseSector (type) {
+	/*Get all the sectors of a determined type of event (Life or Business event).*/
 	var sectors = getSector (type);
 	
 	var i=0, uri="", name="", row="", aux="";
@@ -748,6 +684,7 @@ function initialiseListPS (typeEvent) {
 	
 	ps.innerHTML = "<tr><td/><td>Loading list of public services</td><td/></tr>";
 	
+	/*Get all the public services from a determined type of event (Life or Business event). The list contains the URI of the PS, origin, title and description.*/
 	props = getListPublicServices (typeEvent);
 	
 	auxps = props.split("@@");	
@@ -776,38 +713,31 @@ function initialiseListPS (typeEvent) {
  * #param {string} type - BE or LE, depending of the type of page (business or citizens HTML).
  */
 function initialise (type) {
-	var events = getEvents ("Not");
+	/* Fill the events dropdown */
+		/* Get all the events of PSs from a country. */
+		var events = getEvents ("Not");
+		
+		var i=0, uri="", name="", row="", auxevents="";
+		
+		auxevents = events.split("\n");
+		
+		var events = document.getElementById("eventsContainer");
+		events.innerHTML = "";
+		events.innerHTML = "<option id='" + type + "' name='checkEv' value='Option" + 0 + "'>All</option>";
+		for (i=0; i<auxevents.length-1; i++){
+			row = auxevents[i].split("@#");
+			if (row[0] == type)
+				events.innerHTML = events.innerHTML + "<option id='" + row[1] + "' name='checkEv' value='Option" + parseInt(i+1) + "'>" + row[2] + "</option>";
+		}
 	
-	var i=0, uri="", name="", row="", auxevents="";
-	
-	auxevents = events.split("\n");
-	
-	var events = document.getElementById("eventsContainer");
-	events.innerHTML = "";
-	events.innerHTML = "<option id='" + type + "' name='checkEv' value='Option" + 0 + "'>All</option>";
-	for (i=0; i<auxevents.length-1; i++){
-		row = auxevents[i].split("@#");
-		if (row[0] == type)
-			events.innerHTML = events.innerHTML + "<option id='" + row[1] + "' name='checkEv' value='Option" + parseInt(i+1) + "'>" + row[2] + "</option>";
-	}
-	
+	/* Initialisation of the list of sectors to filter. */
 	initialiseSector(type);
+
+	/* Initialisation of the list of public services. */
 	initialiseListPS(type);
 	
-	var titleps = document.getElementById("title1");
-	titleps.innerHTML = " ";
-	var descps = document.getElementById("description1");
-	descps.innerHTML = " ";
-	
-	titleps = document.getElementById("title2");
-	titleps.innerHTML = " ";
-	descps = document.getElementById("description2");
-	descps.innerHTML = " ";
-	
-	titleps = document.getElementById("title3");
-	titleps.innerHTML = " ";
-	descps = document.getElementById("description3");
-	descps.innerHTML = " ";
+	/* Empty the popover */
+	resetPSInfo();
 }
 
 /**
@@ -878,9 +808,6 @@ function getSelectedSector () {
 		}
 	}
 	
-	if (uris != "")
-		uris = uris + "@#";
-	
 	return uris;
 }
 
@@ -893,7 +820,7 @@ function getURIProps (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getURIprops.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getURIprops.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -913,7 +840,7 @@ function getMoreInfoURI (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getMoreInfo.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getMoreInfo.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -933,7 +860,7 @@ function getURIShowProperty (uri) {
 	
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getURIShowProp.php",
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getURIShowProp.php",
 		data: { "uri":uri },
 		async: false,
 		success: function (response) {
@@ -960,8 +887,9 @@ function updateInfo (field, title, list, origin) {
 		aux=props[i].split("@#");
 		prop=aux[0];
 		value=aux[1];
-		name = prop
+		name = prop;
 		if(prop != "") {
+			/* The title of the PS */
 			if(prop == "Name") {
 				title.innerHTML = origin + " - " + value;
 			}
@@ -970,6 +898,7 @@ function updateInfo (field, title, list, origin) {
 					//uri = value.substring(0, value.length-1);
 					uri = value;
 					show = "";
+					/* Get the property to show of a determined property (title of the Formal Framework, name of the Public Organisation...). */
 					show = getURIShowProperty (uri);
 					if (show == "")
 						cad = cad + "<div><b>" + name + "</b>: " + uri + "</div>";
@@ -993,66 +922,8 @@ function updateInfo (field, title, list, origin) {
 	field.innerHTML = cad;
 }
 
-/**
- * Apply the filter.
- */
-function applyPS () {
-	var uri="", props="";
-	
-	uri = getSelectedPS();
-	
-	if(uri != "") {
-		var desc = document.getElementById("description");
-		var title = document.getElementById("title");
-	
-		title.innerHTML = "";
-		desc.innerHTML = "Loading description...";
-		
-		//show the Public Service properties
-		props = getURIProps(uri);
-		updateInfo(desc, title, props);
-	}
-}
 
-/**
- * Apply the filter at EU level.
- * #param {string} country - Origin of the PS.
- */
-function applyPSEU (country) {
-	var uri="", props="";
-	
-	uri = getSelectedPSEU (country);
-	
-	if(uri != "") {
-		var desc = document.getElementById("description"+country);
-		var title = document.getElementById("title"+country);
-	
-		title.innerHTML = "";
-		desc.innerHTML = "Loading description...";
-		
-		//show the Public Service properties
-		props = getURIProps(uri);
-		updateInfo(desc, title, props);
-	}
-}
 
-/**
- * Apply the event filter.
- * #param {string} country - Origin (country, region) of the PS.
- */
-function applyEvent (country) {
-	var uris="", props="", i;
-	
-	uris = getSelectedEvent();
-	
-	if(uris != "") {
-		if(country != "EU")
-			initialisePS (country, uris);
-		else {
-			initialisePSEU (uris);
-		}
-	}
-}
 
 /**
  * Get more information about a determined URI (pop up window).
@@ -1061,7 +932,7 @@ function applyEvent (country) {
  */
 function getMoreInfo (uri, uriName) {
 	var modal, body, header, props="", bodyText="", i, name="", value="", aux="";
-	
+
 	props = getMoreInfoURI (uri);
 	
 	if (props == "") { //If there is no further information, show the Identifier
@@ -1069,21 +940,11 @@ function getMoreInfo (uri, uriName) {
 		modal = document.getElementById('moreInfo');
 
 		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("closeInfo")[0];
+		var span = document.getElementById("closeInfo-moreInfo");
 
 		// When the user clicks the button, open the modal
 		modal.style.display = "block";
 
-		header = document.getElementById('modalHeader');
-		header.innerHTML = uriName;
-		
-		props = props.split("##");
-		
-		bodyText = "<div><b>Identifier</b>: " + uri + "</div>";
-		
-		body = document.getElementById('modalBody');
-		body.innerHTML = bodyText;
-		
 		// When the user clicks on <span> (x), close the modal
 		span.onclick = function() {
 			modal.style.display = "none";
@@ -1095,18 +956,40 @@ function getMoreInfo (uri, uriName) {
 				modal.style.display = "none";
 			}
 		}
+
+		header = document.getElementById('modalHeader-moreInfo');
+		header.innerHTML = uriName;
+		
+		props = props.split("##");
+		
+		bodyText = "<div><b>Identifier</b>: " + uri + "</div>";
+		
+		body = document.getElementById('modalBody-moreInfo');
+		body.innerHTML = bodyText;
 	}
  	else {
 		// Get the modal
 		modal = document.getElementById('moreInfo');
 
 		// Get the <span> element that closes the modal
-		var span = document.getElementsByClassName("closeInfo")[0];
+		var span = document.getElementById("closeInfo-moreInfo");
 
 		// When the user clicks the button, open the modal
 		modal.style.display = "block";
 
-		header = document.getElementById('modalHeader');
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+			modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		}
+
+		header = document.getElementById('modalHeader-moreInfo');
 		header.innerHTML = uriName;
 		
 		props = props.split("##");
@@ -1120,20 +1003,8 @@ function getMoreInfo (uri, uriName) {
 			bodyText = bodyText + "<div><b>" + name + "</b>: " + value + "</div>";
 		}
 		
-		body = document.getElementById('modalBody');
+		body = document.getElementById('modalBody-moreInfo');
 		body.innerHTML = bodyText;
-		
-		// When the user clicks on <span> (x), close the modal
-		span.onclick = function() {
-			modal.style.display = "none";
-		}
-
-		// When the user clicks anywhere outside of the modal, close it
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		}
 	}
 }
 
@@ -1144,23 +1015,35 @@ function getMoreInfo (uri, uriName) {
  */
 function getPSInfo (uri, origin) {
 	var props="";
-	var title, desc;
+
+	// Get the modal
+	var modal = document.getElementById('PSInfo');
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementById("closeInfo-PSInfo");
+
+	// When the user clicks the button, open the modal
+	modal.style.display = "block";
+
+	title = document.getElementById('modalHeader-PSInfo');
+	title.innerHTML = "";
 	
-	if (origin == "Federal") {
-		title = document.getElementById("title1");
-		desc = document.getElementById("description1");
-	}
-	if (origin == "Flanders") {
-		title = document.getElementById("title2");
-		desc = document.getElementById("description2");
-	}
-	if (origin == "Wallonia") {
-		desc = document.getElementById("description3");
-		title = document.getElementById("title3");
+	desc = document.getElementById('modalBody-PSInfo');
+	desc.innerHTML = "Loading description...";
+
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
 	}
 
-	title.innerHTML = "";
-	desc.innerHTML = "Loading description...";
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+
+	console.log("here");
 	
 	//show the Public Service properties
 	props = getURIProps(uri);
@@ -1198,20 +1081,9 @@ function updateListPS (list) {
 	if (cad == "") cad = "<tr><td/><td>There is no public service found under that criteria.</td><td/></tr>";
 	ps.innerHTML = cad;
 	
-	var titleps = document.getElementById("title1");
-	titleps.innerHTML = "";
-	var descps = document.getElementById("description1");
-	descps.innerHTML = "";
+	/*Reset the popover*/
+	resetPSInfo();
 	
-	titleps = document.getElementById("title2");
-	titleps.innerHTML = "";
-	descps = document.getElementById("description2");
-	descps.innerHTML = "";
-	
-	titleps = document.getElementById("title3");
-	titleps.innerHTML = "";
-	descps = document.getElementById("description3");
-	descps.innerHTML = "";
 }
 
 /**
@@ -1225,37 +1097,49 @@ function applyFilter () {
 	
 	var ps = document.getElementById("listPS");
 	ps.innerHTML = "<tr><td/><td>Loading list of public services</td><td/></tr>";
-	var titleps = document.getElementById("title1");
-	titleps.innerHTML = " ";	
-	var descps = document.getElementById("description1");
-	descps.innerHTML = " ";
-	titleps = document.getElementById("title2");
-	titleps.innerHTML = " ";	
-	descps = document.getElementById("description2");
-	descps.innerHTML = " ";
-	titleps = document.getElementById("title3");
-	titleps.innerHTML = " ";	
-	descps = document.getElementById("description3");
-	descps.innerHTML = " ";
+
+	/*reset the popover*/
+	resetPSInfo();
 	
 	if (sector == "")
 		s = "NoSector";
-	else {
+	else
 		s = sector.replace(/ /g, "##");
-	}
+	
 	
 	var cad="";
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:80/harvesterPilotFederal/pages/getPSFilter.php",
-		data: { "ev":event, "sector":s },
+		url: "http://localhost:80/harvesterPilotFederal/cpsv-ap_harvester_federal_pilot/getPSFilter.php",
+		data: { "ev":event, "sector":s/* , "lang":l */ },
 		async: false,
 		success: function (response) {
 			cad = response;
 		},
 	});
 	
+	location.href="#list_PS";
 	updateListPS(cad);
 	
 }
 
+function resetPSInfo () {
+	// Get the modal
+	var modal = document.getElementById('PSInfo');
+
+	// Get the <span> element that closes the modal
+	var span = document.getElementById("closeInfo-PSInfo");
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+		modal.style.display = "none";
+	}
+
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+
+}
